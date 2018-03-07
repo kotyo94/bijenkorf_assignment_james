@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Exercise1 extends Component {
+class Form extends Component {
     render() {
         return (
             <div className="box">
@@ -13,4 +13,4 @@ class Exercise1 extends Component {
     }
 }
 
-export default Exercise1;
+export default Form;
