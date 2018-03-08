@@ -15,7 +15,7 @@ class SearchResults extends Component {
         }
 
         return (
-            <ul>
+            <ul className="search-results-list">
                 {suggestionItems}
             </ul>
         );

@@ -68,6 +68,16 @@ input[type=text]:focus {
   visibility: hidden;
 }
 
+.search-results-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 5px;
+}
+
+.search-results-list li {
+  padding: 10px 0;
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 5%;
