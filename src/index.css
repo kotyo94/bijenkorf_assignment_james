@@ -19,6 +19,12 @@ body,h1,h2,h3,p {
   text-align: center;
 }
 
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .box {
   height: 75vh;
   background-color: white;
@@ -42,9 +48,24 @@ input[type=text]:focus {
 .icon {
   position: absolute;
   padding: 12px;
-  margin-left: -45px;
   width: 45px;
   border-radius: 1px;
+}
+
+.icon-clear {
+  margin-left: -90px;
+}
+
+.icon-search {
+  margin-left: -45px;
+}
+
+.visibility-show {
+  visibility: visible;
+}
+
+.visibility-hide {
+  visibility: hidden;
 }
 
 @media (max-width: 600px) {
