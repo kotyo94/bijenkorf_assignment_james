@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SearchResults from './SearchResults';
 
 class Form extends Component {
 
@@ -6,7 +7,8 @@ class Form extends Component {
         super();
         this.state = {
             condition: false,
-            inputValue: ""
+            inputValue: "",
+            searchResults: []
         }
     }
 
@@ -24,13 +26,14 @@ class Form extends Component {
         }, function () {
             this.props.onClickClear(this.state.condition);
         })
-
     }
+
     handleOnBlur(event) {
         setTimeout(() => this.setState({
-            condition: false
+            condition: false,
+            searchResults: []
         }, function () {
-            this.props.onFocusForm(this.state.condition);
+            this.props.onBluerForm(this.state);
         }), 250)
     }
 
@@ -42,12 +45,24 @@ class Form extends Component {
         })
     }
 
+    handleKeUp(event) {
+        if(event.target.value.length > 1) {
+            this.setState({
+                inputValue: event.target.value
+            }, function () {
+                this.props.onKeyUp(this.state.inputValue);
+            })
+        }
+    }
+
     render() {
+
         return (
             <div className="box">
                 <form onFocus={this.handleOnFocus.bind(this)} onBlur={this.handleOnBlur.bind(this)}>
                     <input type="text" id="zoeken" name="" value={this.state.inputValue} placeholder="Zoeken"
-                           ref="inputValue" onChange={this.handleInputChange.bind(this)}/>
+                           ref="inputValue" onChange={this.handleInputChange.bind(this)}
+                            onKeyUp={this.handleKeUp.bind(this)}/>
                     <button type="button" onClick={this.handleOnClickClearIcon.bind(this)}
                             className={this.state.condition ? "icon icon-clear" : "icon icon-clear visibility-hide"}>
                         <span>X</span>
@@ -55,6 +70,7 @@ class Form extends Component {
                     <button className="icon icon-search">
                         <span>icon</span>
                     </button>
+                    <SearchResults searchResults={this.props.searchResults}/>
                 </form>
             </div>
         );

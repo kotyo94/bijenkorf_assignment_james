@@ -7,7 +7,8 @@ class App extends Component {
         super(props);
         this.state = {
             condition: true,
-            inputValue: ""
+            inputValue: "",
+            searchResults: []
         };
     }
 
@@ -17,29 +18,53 @@ class App extends Component {
         })
     }
 
-    onBlueForm(state) {
+    onBluerForm(state) {
         this.setState({
-            condition: state
+            condition: state.condition,
+            searchResults: state.searchResults
         })
     }
 
     onClickClear(state) {
         this.setState({
-            inputValue: ""
+            inputValue: "",
+            searchResults: []
         })
     }
 
     onOnInputChange(state) {
         this.setState({
             inputValue: state
-        })
+        });
+    }
+
+    onKeyUp(state) {
+        this.getSearchResults(state);
+    }
+
+    getSearchResults(query) {
+        fetch("http://localhost:3000/search\?q\="+query)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        searchResults: result['suggestions']
+                    },function () {
+                        console.log(this.state)
+                    })
+                },
+                (error) => {
+                    console.log(error)
+                }
+            )
     }
 
     render() {
         return (
             <div className="container">
-                < Form onFocusForm={this.onFocusForm.bind(this)} onBlueForm={this.onBlueForm.bind(this)}
-                       onInputChange={this.onOnInputChange.bind(this)} onClickClear={this.onClickClear.bind(this)}/>
+                < Form searchResults={this.state.searchResults} onFocusForm={this.onFocusForm.bind(this)} onBluerForm={this.onBluerForm.bind(this)}
+                       onInputChange={this.onOnInputChange.bind(this)} onClickClear={this.onClickClear.bind(this)}
+                onKeyUp={this.onKeyUp.bind(this)}/>
             </div>
         );
     }
